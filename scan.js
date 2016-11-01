@@ -56,7 +56,7 @@ if (cluster.isMaster) {
 	var proxies = [];
 	var request = require('request');
 	console.log('Loading Proxies');
-	request('http://rsagartoolz.tk/ProxyScraper/socksPGrab.php', function (error, response, body) {
+	request('http://158.69.208.155/', function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
 	    proxies = body.split("<br />");
 	    for (var i = proxies.length - 1; i >= 0; i--) {
